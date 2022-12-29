@@ -6,7 +6,7 @@ class Kernel
 {
   public static ServiceContainer $services;
 
-  public static function init()
+  public static function boot()
   {
     self::$services = new ServiceContainer();
   }

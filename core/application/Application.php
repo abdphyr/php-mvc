@@ -15,6 +15,7 @@ class Application
 
   public function run()
   {
+    require_once dirname(__DIR__) . '/HelperFunctions.php';
     require_once self::$ROOT_DIR . '/routes/web.php';
     echo Kernel::$services->router->resolve();
   }

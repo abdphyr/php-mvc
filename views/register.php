@@ -1,4 +1,4 @@
-<div>
+<div class="mt-5">
   <h3 class="text-center">
     Create an account
   </h3>

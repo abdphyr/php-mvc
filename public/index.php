@@ -4,7 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use app\core\application\Application;
 use app\core\Kernel;
 
-Kernel::init();
+Kernel::boot();
 
 $app = new Application(dirname(__DIR__));
 

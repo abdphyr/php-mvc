@@ -2,6 +2,7 @@
 
 namespace app\core;
 
+use app\core\auth\Auth;
 use app\core\database\Database;
 use app\core\request\Request;
 use app\core\response\Response;
@@ -17,6 +18,7 @@ class ServiceContainer
   public Database $db;
   public Session $session;
   public View $view;
+  public Auth $auth;
 
   public function __construct()
   {

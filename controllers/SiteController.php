@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\core\auth\Auth;
 use app\core\controller\Controller;
 use app\core\request\Request;
 
@@ -9,8 +10,7 @@ class SiteController extends Controller
 
   public function home()
   {
-    $params = ['name' => "Abdumannon"];
-    return $this->view('home', $params);
+    return $this->view('home', Auth::user());
   }
 
   public function contact()

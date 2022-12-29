@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\core\controller\Controller;
-use app\core\Kernel;
 use app\core\request\Request;
 use app\models\User;
 
@@ -11,14 +10,12 @@ class AuthController extends Controller
 {
   public function loginView()
   {
-    $this->setLayout('auth');
-    return $this->view('login');
+    return view('login', [], 'auth');
   }
 
   public function registerView()
   {
-    $this->setLayout('auth');
-    return $this->view('register');
+    return view('register', [], 'auth');
   }
 
   public function register(Request $request)
@@ -32,17 +29,17 @@ class AuthController extends Controller
     ], 'users');
 
     if ($isError) {
-      $this->setLayout('auth');
-      return $this->view('register', [
+      return view('register', [
         'model' => $request->body(),
         'errors' => $request->errors
-      ]);
+      ], 'auth');
     }
-  
+
     $isRegister = User::use()->register($request->body());
+    
     if ($isRegister) {
-      Kernel::$services->session->setFlash('success', "Thanks for registering");
-      Kernel::$services->response->redirect('/');
+      setFlash('success', "Thanks for registering");
+      redirect('/');
     }
   }
 
@@ -55,11 +52,23 @@ class AuthController extends Controller
     ]);
 
     if ($isError) {
-      $this->setLayout('auth');
-      return $this->view('login', [
+      return view('login', [
         'model' => $request->body(),
         'errors' => $request->errors
-      ]);
+      ], 'auth');
     }
+
+    $login = User::use()->login($request->body());
+    if ($login) {
+      setFlash('success', "You are login successfully !");
+      redirect('/');
+    } else {
+      return view('login', [], 'auth');
+    }
+  }
+  public function logout()
+  {
+    logout();
+    return redirect('/');
   }
 }

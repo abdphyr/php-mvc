@@ -14,15 +14,25 @@ class User extends Model
     return new User();
   }
 
-  public function register($filelds)
+  public function register($reqBody)
   {
-    $filelds['status'] = 0;
-    $filelds['password'] = password_hash($filelds['password'], PASSWORD_DEFAULT);
-    return $this->save($filelds);
+    $reqBody['status'] = 0;
+    $reqBody['password'] = password_hash($reqBody['password'], PASSWORD_DEFAULT);
+    return $this->save($reqBody);
   }
 
-  public function login($filelds)
+  public function login($reqBody)
   {
-    // $user = User::findOne();
+    $user = $this->findOne(['email' => $reqBody['email']]);
+    if(!$user){
+      setFlash('login', 'User doesn\'t exist this email');
+      return false;
+    }
+    if(!password_verify($reqBody['password'], $user->password)){
+      setFlash('login', 'Password is incorrect');
+      return false;
+    }
+    login($user);
+    return true;
   }
 }

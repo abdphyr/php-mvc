@@ -1,2 +1,2 @@
 <?php ?>
-<h1>My name is <?=$name;?></h1>
+<h1>Hello <?=$firstname; echo $lastname?></h1>

@@ -26,20 +26,26 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
-          </li>
+          <?php if (user()) : ?>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          <?php else : ?>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+          <?php endif ?>
         </ul>
       </div>
     </div>
   </nav>
   <div class="container">
-    <?php if (app\core\Kernel::$services->session->getFlash('success')) : ?>
+    <?php if (getFlash('success')) : ?>
       <div class="alert alert-success">
-        <?php echo app\core\Kernel::$services->session->getFlash('success') ?>
+        <?php echo getFlash('success') ?>
       </div>
     <?php endif ?>
     {{content}}
