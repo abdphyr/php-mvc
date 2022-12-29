@@ -7,16 +7,15 @@ class Schema extends CreatePDO
   private static Schema $schema;
   private string $tablename;
 
-  private function __construct($tablename, $config)
+  private function __construct($tablename)
   {
     $this->tablename = $tablename;
-    parent::__construct($config);
+    parent::__construct();
   }
 
   public static function table($tablename)
   {
-    $config = require __DIR__ . '/../config/db.php';
-    self::$schema = new Schema($tablename, $config['db']);
+    self::$schema = new Schema($tablename);
 
     self::$schema->pdo->exec("CREATE TABLE IF NOT EXISTS $tablename (
       id INT AUTO_INCREMENT PRIMARY KEY

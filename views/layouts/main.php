@@ -37,9 +37,9 @@
     </div>
   </nav>
   <div class="container">
-    <?php if (app\core\Kernel::$session->getFlash('success')) : ?>
+    <?php if (app\core\Kernel::$services->session->getFlash('success')) : ?>
       <div class="alert alert-success">
-        <?php echo app\core\Kernel::$session->getFlash('success') ?>
+        <?php echo app\core\Kernel::$services->session->getFlash('success') ?>
       </div>
     <?php endif ?>
     {{content}}

@@ -20,4 +20,9 @@ class User extends Model
     $filelds['password'] = password_hash($filelds['password'], PASSWORD_DEFAULT);
     return $this->save($filelds);
   }
+
+  public function login($filelds)
+  {
+    // $user = User::findOne();
+  }
 }

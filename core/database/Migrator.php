@@ -8,8 +8,7 @@ class Migrator extends CreatePDO
 
   public static function apply()
   {
-    $config = require __DIR__.'/../config/db.php';
-    self::$migrator = new Migrator($config['db']);
+    self::$migrator = new Migrator();
     self::$migrator->applyMigrations();
   }
 

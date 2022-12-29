@@ -38,11 +38,11 @@ class AuthController extends Controller
         'errors' => $request->errors
       ]);
     }
-
+  
     $isRegister = User::use()->register($request->body());
     if ($isRegister) {
-      Kernel::$session->setFlash('success', "Thanks for registering");
-      Kernel::$response->redirect('/');
+      Kernel::$services->session->setFlash('success', "Thanks for registering");
+      Kernel::$services->response->redirect('/');
     }
   }
 
@@ -50,16 +50,16 @@ class AuthController extends Controller
   public function login(Request $request)
   {
     $isError = $request->validate([
-      'firstname' => 'required|min:10',
-      'lastname' => 'required',
       'email' => 'required|email',
       'password' => 'required|min:8|max:24',
-      'confirmPassword' => 'required|match:password'
     ]);
 
     if ($isError) {
-      $error = $request->errors;
+      $this->setLayout('auth');
+      return $this->view('login', [
+        'model' => $request->body(),
+        'errors' => $request->errors
+      ]);
     }
-    var_dump($error);
   }
 }

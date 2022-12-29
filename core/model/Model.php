@@ -4,7 +4,7 @@ namespace app\core\model;
 
 use app\core\Kernel;
 
-abstract class Model 
+abstract class Model
 {
   protected $fillable;
   protected $table;
@@ -16,24 +16,33 @@ abstract class Model
 
       $statement = self::prepare("INSERT INTO $this->table (" . implode(',', $this->fillable) . ")
         VALUES (" . implode(',', $params) . ")
-      "); 
+      ");
       foreach ($this->fillable as $field) {
         $statement->bindValue(":$field", $fields[$field]);
       }
       $statement->execute();
       return true;
-    } catch (\Throwable $th)
-    {
+    } catch (\Throwable $th) {
       return false;
     }
   }
 
 
-  public function find($body)
+  public function findOne($where)
   {
+    $attributes = array_keys($where);
+    $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
+    $statement = self::prepare("SELECT * FROM $this->table WHERE $sql");
+    foreach ($where as $key => $item) {
+      $statement->bindValue(":$key", $item);
+    }
+    $statement->execute();
+    return $statement->fetchObject();
   }
+
+  
   public static function prepare($sql)
   {
-    return Kernel::$pdo->prepare($sql);
+    return Kernel::$services->db->pdo->prepare($sql);
   }
 }

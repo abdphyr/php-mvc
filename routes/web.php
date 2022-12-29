@@ -3,15 +3,15 @@ namespace app\routes;
 
 use app\controllers\AuthController;
 use app\controllers\SiteController;
-use app\core\router\Router;
+use app\core\router\Route;
 
 
-Router::get('/', [SiteController::class, 'home']);
-Router::get('/contact', [SiteController::class, 'contact']);
-Router::post('/contact', [SiteController::class, 'handleContact']);
+Route::get('/', [SiteController::class, 'home']);
+Route::get('/contact', [SiteController::class, 'contact']);
+Route::post('/contact', [SiteController::class, 'handleContact']);
 
-Router::get('/login', [AuthController::class, 'loginView']);
-Router::post('/login', [AuthController::class, 'login']);
-Router::get('/register', [AuthController::class, 'registerView']);
-Router::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'loginView']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'registerView']);
+Route::post('/register', [AuthController::class, 'register']);
 

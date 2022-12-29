@@ -47,7 +47,7 @@ abstract class Validator implements IValidator
         }
 
         if ($ruleName === self::RULE_UNIQUE) {
-          $statement = Kernel::$pdo->prepare("SELECT * FROM $table WHERE $attribute = :attr");
+          $statement = Kernel::$services->db->pdo->prepare("SELECT * FROM $table WHERE $attribute = :attr");
           $statement->bindValue(':attr', $value);
           $statement->execute();
           $record = $statement->fetchObject();
