@@ -8,10 +8,6 @@ use app\models\User;
 
 class AuthController extends Controller
 {
-  public function __construct()
-  {
-    $this->middlewares = ['auth' => ['profule']];
-  }
   public function loginView()
   {
     return view('login', [], 'auth');

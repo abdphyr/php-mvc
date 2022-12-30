@@ -13,7 +13,6 @@ class Method
     $this->method = $method;
     $this->route = $route;
     $this->callback = $callback;
-    // $rr =  implode('/', array_map(fn ($r) => strpos($r, ':') === 0 ? 'param' : $r, explode('/', $route)));
     router()->routes[$method][$route] = $callback;
   }
 
