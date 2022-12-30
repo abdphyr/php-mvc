@@ -1,29 +1,39 @@
 <?php
+
 namespace app\controllers;
 
-use app\core\auth\Auth;
 use app\core\controller\Controller;
-use app\core\request\Request;
+use app\models\Contact;
 
 class SiteController extends Controller
 {
-
   public function home()
   {
-    return $this->view('home', Auth::user());
+    return view('home', auth()->user());
   }
 
   public function contact()
   {
-    $params = ['info' => "This is info"];
-    return $this->view('contact', $params);
+    return view('contact');
   }
 
-  public function handleContact(Request $request)
+  public function handleContact()
   {
-    // $body = Application::$app->request->getBody();
-    // var_dump($body);
-    // return "aaa";
-    var_dump($request->body());
+    $isValidate = request()->validate([
+      'subject' => 'required',
+      'email' => 'required',
+      'body' => 'required',
+    ]);
+    if ($isValidate) {
+      return view('contact', [
+        'model' => request()->body(),
+        'errors' => request()->errors()
+      ]);
+    }
+    $save = Contact::use()->save(request()->body());
+    if($save) {
+      session()->setFlash('success', "Message created successfully");
+      response()->redirect('/');
+    }
   }
 }

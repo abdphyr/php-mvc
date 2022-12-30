@@ -4,6 +4,7 @@ namespace app\core;
 
 use app\core\auth\Auth;
 use app\core\database\Database;
+use app\core\middleware\MiddlewareServie;
 use app\core\request\Request;
 use app\core\response\Response;
 use app\core\router\Router;
@@ -19,6 +20,7 @@ class ServiceContainer
   public Session $session;
   public View $view;
   public Auth $auth;
+  public MiddlewareServie $middleware;
 
   public function __construct()
   {

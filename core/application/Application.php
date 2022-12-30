@@ -2,7 +2,7 @@
 
 namespace app\core\application;
 
-use app\core\Kernel;
+use app\middlewares\MiddlewareProvider;
 
 class Application
 {
@@ -17,6 +17,7 @@ class Application
   {
     require_once dirname(__DIR__) . '/HelperFunctions.php';
     require_once self::$ROOT_DIR . '/routes/web.php';
-    echo Kernel::$services->router->resolve();
+    MiddlewareProvider::execute();
+    echo router()->resolve();
   }
 }

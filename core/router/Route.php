@@ -2,32 +2,30 @@
 
 namespace app\core\router;
 
-use app\core\Kernel;
-
 class Route
 {
-  public static function get($path, $callback)
+  public static function get($route, $callback)
   {
-    Kernel::$services->router->routes['get'][$path] = $callback;
+    return new Method('get', $route, $callback);
   }
 
-  public static function post($path, $callback)
+  public static function post($route, $callback)
   {
-    Kernel::$services->router->routes['post'][$path] = $callback;
+    return new Method('post', $route, $callback);
   }
 
-  public static function put($path, $callback)
+  public static function put($route, $callback)
   {
-    Kernel::$services->router->routes['put'][$path] = $callback;
+    return new Method('put', $route, $callback);
   }
 
-  public static function patch($path, $callback)
+  public static function patch($route, $callback)
   {
-    Kernel::$services->router->routes['patch'][$path] = $callback;
+    return new Method('patch', $route, $callback);
   }
 
-  public static function delete($path, $callback)
+  public static function delete($route, $callback)
   {
-    Kernel::$services->router->routes['delete'][$path] = $callback;
+    return new Method('delete', $route, $callback);
   }
 }

@@ -22,6 +22,5 @@ interface IValidator
 
   public function validate(array $myrules): bool;
   public function addError(string $attribute, string $rule);
-  public function hasError($attribute): string;
-  public function getFirstError($attribute): string;
+  public function errors();
 }

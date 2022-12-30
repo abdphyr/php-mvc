@@ -2,8 +2,6 @@
 
 namespace app\core\validator;
 
-use app\core\Kernel;
-
 abstract class Validator implements IValidator
 {
   public array $errors = [];
@@ -47,7 +45,7 @@ abstract class Validator implements IValidator
         }
 
         if ($ruleName === self::RULE_UNIQUE) {
-          $statement = Kernel::$services->db->pdo->prepare("SELECT * FROM $table WHERE $attribute = :attr");
+          $statement = prepare("SELECT * FROM $table WHERE $attribute = :attr");
           $statement->bindValue(':attr', $value);
           $statement->execute();
           $record = $statement->fetchObject();
@@ -60,13 +58,8 @@ abstract class Validator implements IValidator
     return !empty($this->errors);
   }
 
-  public function hasError($attribute): string
+  public function errors()
   {
-    return $this->errors[$attribute] ?? false;
-  }
-
-  public function getFirstError($attribute): string
-  {
-    return $this->errors[$attribute][0] ?? '';
+    return $this->errors;
   }
 }

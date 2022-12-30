@@ -8,6 +8,10 @@ use app\models\User;
 
 class AuthController extends Controller
 {
+  public function __construct()
+  {
+    $this->middlewares = ['auth' => ['profule']];
+  }
   public function loginView()
   {
     return view('login', [], 'auth');
@@ -36,10 +40,10 @@ class AuthController extends Controller
     }
 
     $isRegister = User::use()->register($request->body());
-    
+
     if ($isRegister) {
-      setFlash('success', "Thanks for registering");
-      redirect('/');
+      session()->setFlash('success', "Thanks for registering");
+      response()->redirect('/');
     }
   }
 
@@ -49,7 +53,7 @@ class AuthController extends Controller
     $isError = $request->validate([
       'email' => 'required|email',
       'password' => 'required|min:8|max:24',
-    ]);
+    ], 'users');
 
     if ($isError) {
       return view('login', [
@@ -60,15 +64,20 @@ class AuthController extends Controller
 
     $login = User::use()->login($request->body());
     if ($login) {
-      setFlash('success', "You are login successfully !");
-      redirect('/');
+      session()->setFlash('success', "You are login successfully !");
+      response()->redirect('/');
     } else {
       return view('login', [], 'auth');
     }
   }
   public function logout()
   {
-    logout();
-    return redirect('/');
+    session()->remove('user');
+    return response()->redirect('/');
+  }
+
+  public function profile()
+  {
+    return view('profile');
   }
 }

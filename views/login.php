@@ -1,11 +1,12 @@
+<?php $this->title = 'Login'?>
 <div class="mt-5">
   <h3 class="text-center">
     Login
   </h3>
   <?php $form = app\core\form\Form::begin('', "post") ?>
-  <?php if (getFlash('login')) : ?>
+  <?php if (session()->getFlash('login')) : ?>
       <div class="alert alert-danger">
-        <?php echo getFlash('login') ?>
+        <?php echo session()->getFlash('login') ?>
       </div>
     <?php endif ?>
     

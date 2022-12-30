@@ -19,7 +19,7 @@ class m0001_create_users_table
 
   public function down(\PDO $pdo)
   {
-    $sql = "DROP TABLE user;";
+    $sql = "DROP TABLE users;";
     $pdo->exec($sql);
   }
 }

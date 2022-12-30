@@ -8,5 +8,6 @@ return [
   'db' => app\core\database\Database::class,
   'session' => app\core\session\Session::class,
   'view' => app\core\view\View::class,
-  'auth' => app\core\auth\Auth::class
+  'auth' => app\core\auth\Auth::class,
+  'middleware' => app\core\middleware\MiddlewareServie::class
 ];

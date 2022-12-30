@@ -7,22 +7,22 @@ use app\core\Kernel;
 class Router
 {
   public array $routes = [];
+
   public function resolve()
   {
-    $path = Kernel::$services->request->path();
-    $method = Kernel::$services->request->method();
-    $callback = $this->routes[$method][$path] ?? false;
+    $callback = $this->routes[request()->method()][request()->route()] ?? false;
 
     if ($callback === false) {
-      Kernel::$services->response->setStatusCode(404);
-      return Kernel::$services->view->renderView("404");;
+      response()->setStatusCode(404);
+      return view("404");;
     }
+
     if (is_string($callback)) {
-      return Kernel::$services->view->renderView($callback);
+      return view($callback);
     }
+
     if (is_array($callback)) {
-      $callback[0] = new $callback[0]();
+      return middleware()->check($callback);
     }
-    return call_user_func($callback, Kernel::$services->request, Kernel::$services->response);
   }
 }

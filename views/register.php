@@ -1,3 +1,4 @@
+<?php $this->title = 'Register' ?>
 <div class="mt-5">
   <h3 class="text-center">
     Create an account

@@ -4,10 +4,12 @@ use app\core\application\Application;
 
 class View
 {
+  public string $title = 'Document';
+
   public function renderView($view, $params = [], ?string $layout=null)
   {
-    $layoutContent = self::layoutContent($layout);
     $viewContent = self::renderOnlyView($view, $params);
+    $layoutContent = self::layoutContent($layout);
     return str_replace('{{content}}', $viewContent, $layoutContent);
   }
 

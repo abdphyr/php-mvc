@@ -1,19 +1,12 @@
-<?php
-?>
-<div class="container">
-  <form action="" method="post">
-    <div class="mb-3">
-      <label class="form-label">Subject</label>
-      <input type="text" name="subject" class="form-control">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Email address</label>
-      <input type="email" name="email" class="form-control">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Body</label>
-      <textarea type="text" name="body" class="form-control"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+<?php $this->title = 'Contact' ?>
+<div class="mt-5">
+  <h3 class="text-center">
+    Send message
+  </h3>
+  <?php $form = app\core\form\Form::begin('', "post") ?>
+  <?php echo $form->field($errors, $model, 'subject') ?>
+  <?php echo $form->field($errors, $model, 'email')->email() ?>
+  <?php echo $form->field($errors, $model, 'body')->textarea() ?>  
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <?php app\core\form\Form::end() ?>
 </div>

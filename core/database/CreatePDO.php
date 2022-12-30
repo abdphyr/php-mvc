@@ -8,7 +8,7 @@ abstract class CreatePDO
 
   public function __construct()
   {
-    $configAll = require_once dirname(__DIR__) . '/config/db.php';
+    $configAll = require dirname(__DIR__) . '/config/db.php';
     $config = $configAll['db'];
     $dbhost = $config['dbhost'] ?? '';
     $dbname = $config['dbname'] ?? '';

@@ -24,15 +24,15 @@ class User extends Model
   public function login($reqBody)
   {
     $user = $this->findOne(['email' => $reqBody['email']]);
-    if(!$user){
-      setFlash('login', 'User doesn\'t exist this email');
+    if (!$user) {
+      session()->setFlash('login', 'User doesn\'t exist this email');
       return false;
     }
-    if(!password_verify($reqBody['password'], $user->password)){
-      setFlash('login', 'Password is incorrect');
+    if (!password_verify($reqBody['password'], $user->password)) {
+      session()->setFlash('login', 'Password is incorrect');
       return false;
     }
-    login($user);
+    session()->set('user', $user->id);
     return true;
   }
 }
