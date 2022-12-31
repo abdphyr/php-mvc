@@ -17,6 +17,16 @@ class Request extends Validator
     $path = $this->path();
     $myroute = [];
     $params = [];
+
+    if (strpos($path, '?')) {
+      $prm = substr($path, strpos($path, "?") + 1);
+      foreach (explode('&', $prm) as $p) {
+        $param = explode('=', $p);
+        $params[$param[0]] = $param[1];
+      }
+      return $params;
+    }
+
     foreach ($routes as $route => $callback) {
       $index = strpos($route, ':');
       if ($index) {
@@ -40,6 +50,11 @@ class Request extends Validator
   {
     $routes = router()->routes[$this->method()];
     $path = $this->path();
+
+    if (strpos($path, '?')) {
+      return substr($path, 0, strpos($path, '?'));
+    }
+
     foreach ($routes as $route => $callback) {
       $index = strpos($route, ':');
       if ($index) {
@@ -55,12 +70,7 @@ class Request extends Validator
 
   public function path()
   {
-    $path = $_SERVER['REQUEST_URI'] ?? '/';
-    $position = strpos($path, '?');
-    if ($position === false) {
-      return $path;
-    }
-    return substr($path, 0, 6);
+    return  $_SERVER['REQUEST_URI'] ?? '/';
   }
 
   public function method()
