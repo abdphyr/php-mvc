@@ -46,3 +46,9 @@ function prepare($sql)
 {
   return Kernel::$services->db->pdo->prepare($sql);
 }
+
+function dd(...$arg)
+{
+  var_dump($arg);
+  die;
+}
